@@ -5,10 +5,9 @@ const CELL_SIZE = 6;
 
 const GameOfLifeGPU: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const gpuRef = useRef<GPU | null>(null);
   const kernelRef = useRef<any>(null);
   const gridRef = useRef<Uint8Array>(new Uint8Array());
-  const rafRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null); // requestAnimationFrame ID
   const lastTickRef = useRef(0);
   const isDrawingRef = useRef(false);
   const drawModeRef = useRef<0 | 1>(1);
@@ -30,9 +29,7 @@ const GameOfLifeGPU: React.FC = () => {
   };
 
   useEffect(() => {
-    gpuRef.current?.destroy();
     const gpu = new GPU();
-    gpuRef.current = gpu;
 
     const kernel = gpu.createKernel(function (grid: number[][]) {
       const x = this.thread.x;
@@ -177,15 +174,6 @@ const GameOfLifeGPU: React.FC = () => {
     drawGrid(gridRef.current);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    const { x, y } = getCoords(e);
-    drawModeRef.current = gridRef.current[idx(x, y)] ? 0 : 1;
-    isDrawingRef.current = true;
-    lastPosRef.current = { x, y };
-    toggleCell(x, y, drawModeRef.current);
-    drawGrid(gridRef.current);
-  };
-
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDrawingRef.current) return;
     const { x, y } = getCoords(e);
@@ -199,17 +187,22 @@ const GameOfLifeGPU: React.FC = () => {
     drawLine(last.x, last.y, x, y, drawModeRef.current);
     lastPosRef.current = { x, y };
   };
-
   const handleMouseUp = () => {
     isDrawingRef.current = false;
     lastPosRef.current = null;
   };
-
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const { x, y } = getCoords(e);
+    drawModeRef.current = gridRef.current[idx(x, y)] ? 0 : 1;
+    isDrawingRef.current = true;
+    lastPosRef.current = { x, y };
+    toggleCell(x, y, drawModeRef.current);
+    drawGrid(gridRef.current);
+  };
   const handleMouseLeave = (e: React.MouseEvent) => {
     const { x, y } = getCoords(e);
     lastPosRef.current = { x, y };
   };
-
   const handleMouseEnter = (e: React.MouseEvent) => {
     if (e.buttons === 0) {
       isDrawingRef.current = false;
@@ -265,7 +258,7 @@ const GameOfLifeGPU: React.FC = () => {
 
           <div className='flex flex-col gap-2'>
             <label className="block text-sm">FPS: {fps}</label>
-            <input type="range" className='h-8' min={1} max={60} value={fps} onChange={(e) => setFps(Number(e.target.value))} />
+            <input type="range" className='h-8' min={1} max={180} value={fps} onChange={(e) => setFps(Number(e.target.value))} />
           </div>
         </div>
       </div>
