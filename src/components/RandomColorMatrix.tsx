@@ -90,7 +90,10 @@ export default function RandomColorMatrix() {
         <label className="mr-2">Mode:</label>
         <select
           value={isGPUMode ? "gpu" : "cpu"}
-          onChange={(e) => setIsGPUMode(e.target.value === "gpu")}
+          onChange={(e) => {
+            setIsGPUMode(e.target.value === "gpu");
+            setTimeTaken(null);
+          }}
           className="p-1 [&>option]:bg-gray-800 [&>option]:cursor-pointer ring-0 outline-0"
         >
           <option value="gpu">GPU</option>
