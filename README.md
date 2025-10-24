@@ -2,6 +2,7 @@
 # GPU.JS Random Color Matrix
 
 A tiny Vite + React + TypeScript demo that uses gpu.js to generate random colors on the GPU and renders it in a React component.
+This [video](https://www.youtube.com/watch?v=B7SE15mzsVs) goes through the code in more details
 
 ## Quick start
 
