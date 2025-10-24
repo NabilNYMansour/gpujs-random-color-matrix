@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "./constants";
-import useKernel from "./hooks/useKernal";
+import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "../constants";
+import useKernel from "../hooks/useKernal";
 
 const runCPU = (size: number, loopCount: number): RGB[][] => {
   const result: RGB[][] = [];
