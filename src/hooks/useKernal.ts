@@ -2,7 +2,7 @@ import { useRef } from "react";
 import useOnUnmount from "./useOnUnmount";
 import useGPU from "./useGPU";
 import type { IKernelRunShortcut } from "gpu.js";
-import { MAX_LOOP_COUNT, type RGB } from "../constants";
+import { MAX_LOOP_COUNT, type RGB } from "../utils/constants";
 
 const useKernel = () => {
   const { getGPU } = useGPU();

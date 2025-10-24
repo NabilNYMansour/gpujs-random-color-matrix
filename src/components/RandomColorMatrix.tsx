@@ -1,26 +1,7 @@
 import { useEffect, useState } from "react";
-import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "../constants";
+import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "../utils/constants";
 import useKernel from "../hooks/useKernal";
-
-const runCPU = (size: number, loopCount: number): RGB[][] => {
-  const result: RGB[][] = [];
-
-  for (let i = 0; i < size; i++) {
-    const row: RGB[] = Array.from({ length: size }, () => [0, 0, 0]);
-    for (let j = 0; j < size; j++) {
-      for (let l = 0; l < loopCount; l++) {
-        row[j] = [
-          Math.floor(Math.random() * 255),
-          Math.floor(Math.random() * 255),
-          Math.floor(Math.random() * 255)
-        ];
-      }
-    }
-    result.push(row);
-  }
-
-  return result;
-}
+import runCPU from "../utils/runCPU";
 
 export default function RandomColorMatrix() {
   const [matrix, setMatrix] = useState<RGB[][]>([]);
