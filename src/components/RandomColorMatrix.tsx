@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "../utils/constants";
-import useKernel from "../hooks/useKernal";
+import useKernel from "../hooks/useKernel";
 import runCPU from "../utils/runCPU";
 import getEmptyMatrix from "../utils/getEmptyMatrix";
 
