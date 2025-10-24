@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MAX_LOOP_COUNT, MAX_SIZE, MIN_LOOP_COUNT, MIN_SIZE, type RGB } from "../utils/constants";
 import useKernel from "../hooks/useKernal";
 import runCPU from "../utils/runCPU";
+import getEmptyMatrix from "../utils/getEmptyMatrix";
 
 export default function RandomColorMatrix() {
   const [matrix, setMatrix] = useState<RGB[][]>([]);
@@ -23,7 +24,7 @@ export default function RandomColorMatrix() {
 
   useEffect(() => {
     createKernel(size);
-    setMatrix(getRandomMatrix());
+    setMatrix(getEmptyMatrix(size));
   }, [size]);
 
   return (
