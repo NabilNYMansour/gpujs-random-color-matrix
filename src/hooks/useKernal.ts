@@ -33,7 +33,7 @@ const useKernel = () => {
 
   const runKernel = (loopCount: number): RGB[][] => {
     const kernel = kernelRef.current;
-    if (!kernel) return [];
+    if (!kernel) throw new Error("Kernel is not created yet.");
 
     const result = kernel(loopCount) as RGB[][];
     return result.map((row) => Array.from(row));
